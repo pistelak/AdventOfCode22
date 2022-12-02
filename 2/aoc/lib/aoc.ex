@@ -18,11 +18,6 @@ defmodule Aoc do
       |> Enum.sum()
   end
 
-  def evaluate_second_part(input) do
-    input
-      |> preprocess_input()
-  end
-
   def score(["A", "X"]), do: 1 + 3
   def score(["B", "X"]), do: 1 + 0
   def score(["C", "X"]), do: 1 + 6
@@ -34,6 +29,31 @@ defmodule Aoc do
   def score(["A", "Z"]), do: 3 + 0
   def score(["B", "Z"]), do: 3 + 6
   def score(["C", "Z"]), do: 3 + 3
+
+  @doc """
+  #Examples
+      iex> ["A Y", "B X", "C Z"]
+      ...> |> Aoc.evaluate_second_part()
+      12
+  """
+  def evaluate_second_part(input) do
+    input
+      |> preprocess_input()
+      |> Enum.map(&Aoc.score_to_end_round/1)
+      |> Enum.sum()
+  end
+
+  def score_to_end_round(["A", "X"]), do: 3 + 0
+  def score_to_end_round(["B", "X"]), do: 1 + 0
+  def score_to_end_round(["C", "X"]), do: 2 + 0
+
+  def score_to_end_round(["A", "Y"]), do: 1 + 3
+  def score_to_end_round(["B", "Y"]), do: 2 + 3
+  def score_to_end_round(["C", "Y"]), do: 3 + 3
+
+  def score_to_end_round(["A", "Z"]), do: 2 + 6
+  def score_to_end_round(["B", "Z"]), do: 3 + 6
+  def score_to_end_round(["C", "Z"]), do: 1 + 6
 
   @doc """
   ## Examples
